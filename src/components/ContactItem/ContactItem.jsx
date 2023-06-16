@@ -8,7 +8,7 @@ const ContactItem = ({ contact }) => {
   const dispatch = useDispatch();
 
   const handleDelete = () => {
-    dispatch(remove(contact));
+    dispatch(remove(contact.id));
   };
 
   return (
@@ -28,4 +28,3 @@ const ContactItem = ({ contact }) => {
 };
 
 export default ContactItem;
-
