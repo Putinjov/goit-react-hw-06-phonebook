@@ -1,30 +1,25 @@
-import PropTypes from 'prop-types';
-import css from './ContactList.module.css';
-import { useDispatch } from 'react-redux';
-import { remove } from 'redux/sliceContact';
+import React from 'react';
+import { useSelector } from 'react-redux';
+import ContactItem from '../ContactItem/ContactItem';
 
-export const ContactList = ({ listContact }) => {
-  const dispatch = useDispatch();
-  return listContact.map(cont => {
-    return (
-      <p key={cont.id} className={css.listItem}>
-        <span className={css.phone}>
-          {cont.name}: {cont.number}
-        </span>
-        <button
-          className={css.btn}
-          type="button"
-          onClick={() => {
-            dispatch(remove(cont.id));
-          }}
-        >
-          Delete
-        </button>
-      </p>
-    );
-  });
+const ContactList = () => {
+  const contacts = useSelector(state => state.contacts);
+  const filter = useSelector(state => state.filter);
+
+  const filteredContacts = contacts.filter(contact =>
+    contact.name.toLowerCase().includes(filter.toLowerCase())
+  );
+
+  return (
+    <ul className='contacts-list'>
+      {filteredContacts.map(contact => (
+        <ContactItem
+          key={contact.id}
+          contact={contact} 
+        />
+      ))}
+    </ul>
+  );
 };
 
-ContactList.propTypes = {
-  listContact: PropTypes.array.isRequired,
-};
+export default ContactList;

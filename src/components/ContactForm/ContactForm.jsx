@@ -4,7 +4,7 @@ import { Button } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { add } from 'redux/sliceContact';
 
-export const ContactForm = ({ addContact }) => {
+const ContactForm = ({ addContact }) => {
   const dispatch = useDispatch();
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
@@ -62,3 +62,5 @@ export const ContactForm = ({ addContact }) => {
     </form>
   );
 };
+
+export default ContactForm;

@@ -1,12 +1,13 @@
-import { ContactList } from '../components/ContactList/ContactList';
-import { Filter } from '../components/Filter/Filter';
-import { ContactForm } from '../components/ContactForm/ContactForm';
-import css from './App.module.css';
+import ContactList from '../components/ContactList/ContactList';
+import Filter from '../components/Filter/Filter';
+import ContactForm from '../components/ContactForm/ContactForm';
 import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import '../index.css';
 
 export const App = () => {
   const filtered = useSelector(state => state.filter);
-  const contacts = useSelector(state => state.contacts);
+  const contacts = useSelector(state => loadContactsFromLocalStorage());
 
   const filterContact = e => {
     const filteredContacts = contacts.filter(contact =>
@@ -15,8 +16,12 @@ export const App = () => {
     return filteredContacts;
   };
 
+  useEffect(() => {
+    saveContactsToLocalStorage(contacts);
+  }, [contacts]);
+
   return (
-    <div className={css.container}>
+    <div className='contacts'>
       <h1>Phonebook</h1>
       <ContactForm />
       <h2>Contacts</h2>
@@ -25,6 +30,16 @@ export const App = () => {
     </div>
   );
 };
+
+const saveContactsToLocalStorage = (contacts) => {
+  localStorage.setItem('contacts', JSON.stringify(contacts));
+};
+
+const loadContactsFromLocalStorage = () => {
+  const savedContacts = localStorage.getItem('contacts');
+  return savedContacts ? JSON.parse(savedContacts) : [];
+};
+
 
 
 // const CONTATCTS = 'contatcts';
