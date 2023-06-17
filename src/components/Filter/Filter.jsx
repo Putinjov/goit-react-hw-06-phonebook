@@ -1,14 +1,18 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { query } from 'redux/sliceFilter';
+import { getFilter } from 'redux/selectors';
 
 const Filter = () => {
-  const filter = useSelector(state => state.filter);
+  const filter = useSelector(getFilter);
   const dispatch = useDispatch();
 
-  const handleFilterChange = evt => {
-    dispatch(query(evt.currentTarget.value));
-  };
+  const handleFilterChange = useCallback(
+    evt => {
+      dispatch(query(evt.currentTarget.value));
+    },
+    [dispatch]
+  );
 
   return (
     <div className='filter'>

@@ -3,6 +3,7 @@ import { nanoid } from 'nanoid';
 import { Button } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { add } from 'redux/sliceContact';
+import { getContacts } from 'redux/selectors';
 
 const ContactForm = () => {
   const dispatch = useDispatch();
@@ -18,7 +19,7 @@ const ContactForm = () => {
     }
   };
 
-  const contacts = useSelector(state => state.contacts);
+  const contacts = useSelector(getContacts);
 
   const handleSubmit = e => {
     e.preventDefault();
