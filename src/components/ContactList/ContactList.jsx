@@ -8,23 +8,16 @@ const ContactList = () => {
   const contacts = useSelector(getContacts);
   const filter = useSelector(getFilter);
 
-  const filteredContacts = filter
-    ? contacts.filter(contact => contact.name.toLowerCase().includes(filter.toLowerCase()))
-    : contacts;
+   const filteredContacts = contacts.filter(contact => contact.name.toLowerCase().includes(filter.toLowerCase()))
 
   return (
     <ul className='contacts-list'>
-      {filter && (
+      {
         filteredContacts.map(contact => (
           <ContactItem key={contact.id} contact={contact} />
         ))
-      )}
-      {!filter && (
-        contacts.map(contact => (
-          <ContactItem key={contact.id} contact={contact} />
-        ))
-      )}
-      {filteredContacts.length === 0 && (<li>Not found</li>)}
+      }
+      {filteredContacts.length === 0 && (<li key={'Not found'}>Not found</li>)}
     </ul>
   );
 };

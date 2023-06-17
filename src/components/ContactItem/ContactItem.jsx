@@ -12,7 +12,7 @@ const ContactItem = ({ contact }) => {
   };
 
   return (
-    <li className='contacts-item'>
+    <li key={contact.id} className='contacts-item'>
       {contact.name}: {contact.number}
       <Button
         size='small'

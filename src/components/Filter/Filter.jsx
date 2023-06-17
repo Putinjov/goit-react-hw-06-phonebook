@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { query } from 'redux/sliceFilter';
 import { getFilter } from 'redux/selectors';
@@ -6,13 +6,6 @@ import { getFilter } from 'redux/selectors';
 const Filter = () => {
   const filter = useSelector(getFilter);
   const dispatch = useDispatch();
-
-  const handleFilterChange = useCallback(
-    evt => {
-      dispatch(query(evt.currentTarget.value));
-    },
-    [dispatch]
-  );
 
   return (
     <div className='filter'>
@@ -22,7 +15,9 @@ const Filter = () => {
         type="text"
         id="filter"
         value={filter}
-        onChange={handleFilterChange}
+        onChange={(evt) => {
+          dispatch(query(evt.currentTarget.value));
+        }}
         placeholder="Find contacts by name"
       />
     </div>

@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { nanoid } from 'nanoid';
 import { Button } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { add } from 'redux/sliceContact';
@@ -33,7 +32,6 @@ const ContactForm = () => {
       alert(`${name} is already in contacts.`);
     } else {
       const contact = {
-        id: nanoid(),
         name,
         number
       };
